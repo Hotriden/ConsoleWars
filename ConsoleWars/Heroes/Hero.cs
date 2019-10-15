@@ -29,11 +29,13 @@ namespace ConsoleWars
 
         protected internal event HeroStateHandler Killed;
 
-        protected internal event HeroStateHandler GetLevel;
+        protected internal event HeroStateHandler GotLevel;
 
         protected internal event HeroStateHandler MovedToDungeon;
 
         protected internal event HeroStateHandler HeroInfo;
+
+        protected internal event HeroStateHandler Hited;
 
         private int _counter;
 
@@ -44,32 +46,6 @@ namespace ConsoleWars
             Id = _counter;
             Experience = 0;
             Level = 1;
-            IdentifyClass(HeroType);
-        }
-
-        public void IdentifyClass(HeroType heroType)
-        {
-            switch (heroType)
-            {
-                case HeroType.Mage:
-                    Mana = 35;
-                    Vitality = 20;
-                    Strength = 20;
-                    Agility = 25;
-                    break;
-                case HeroType.Rogue:
-                    Mana = 15;
-                    Vitality = 25;
-                    Strength = 25;
-                    Agility = 35;
-                    break;
-                case HeroType.Warrior:
-                    Mana = 10;
-                    Vitality = 35;
-                    Strength = 35;
-                    Agility = 20;
-                    break;
-            }
         }
 
         private void CallEvent(HeroEventArgs e, HeroStateHandler handler)
@@ -88,10 +64,54 @@ namespace ConsoleWars
             CallEvent(e, Killed);
         }
 
+        protected virtual void GetLevel(HeroEventArgs e)
+        {
+            CallEvent(e, GotLevel);
+        }
+
+        protected virtual void MoveDungeon(HeroEventArgs e)
+        {
+            CallEvent(e, MovedToDungeon);
+        }
+
+        protected virtual void Hit(HeroEventArgs e)
+        {
+            CallEvent(e, Hited);
+        }
+
         public string HeroesInfo()
         {
             return($"Hero name: {NickName}\r\nClass: {HeroType}\r\nLevel: {Level}, Experience: {Experience}\r\nCurrent features:\r\nStrength: {Strength}\r\n" +
                 $"Vitality{Vitality}\r\nAgility: {Agility}\r\nMana: {Mana}");
+        }
+
+        protected internal virtual void HeroCreated()
+        {
+            OnCreated(new HeroEventArgs($"Character {NickName}, class {HeroType} created!", this.HealPoints, this.Experience));
+        }
+
+        protected internal virtual void HeroKilled()
+        {
+            if (this.Experience <= ExperienceBar)
+            {
+                this.Experience = 0;
+            }
+            else
+            {
+                this.Experience = this.Experience - ExperienceBar / 4;
+            }
+            OnKilled(new HeroEventArgs($"Character {NickName}, has been slain. You lost 25% of experience", 0, this.Experience));
+        }
+
+        protected internal void LevelUp()
+        {
+            if (this.Experience >= ExperienceBar)
+                GetLevel(new HeroEventArgs($"Your character get level {Level}. Your features increased!", HealPoints, 0));
+        }
+
+        protected interface void MoveForExp()
+        {
+            MovedToDungeon(th)
         }
     }
 }

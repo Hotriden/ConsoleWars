@@ -31,5 +31,7 @@ namespace ConsoleWars.Heroes
         public int Level { get; set; }
 
         public int Experience { get; set; }
+
+        public int ExperienceBar { get; set; }
     }
 }

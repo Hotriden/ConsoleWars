@@ -11,5 +11,6 @@ namespace ConsoleWars.Heroes
         string Hit();
         string LevelUp();
         string MoveOnLevel();
+        string CreateHero();
     }
 }
