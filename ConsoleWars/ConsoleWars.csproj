@@ -47,6 +47,7 @@
     <Compile Include="Factory\MageFactory.cs" />
     <Compile Include="Factory\RogueFactory.cs" />
     <Compile Include="Factory\WarriorFactory.cs" />
+    <Compile Include="Game\Menu.cs" />
     <Compile Include="Heroes\Features.cs" />
     <Compile Include="Heroes\Hero.cs" />
     <Compile Include="Heroes\HeroEventArgs.cs" />
@@ -59,6 +60,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Enemies\" />
+    <Folder Include="Levels\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

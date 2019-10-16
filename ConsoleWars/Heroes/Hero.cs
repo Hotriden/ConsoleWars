@@ -23,8 +23,10 @@ namespace ConsoleWars
         Mace
     }
 
-    public abstract class Hero:Features
+    public abstract class Hero : Features
     {
+        Random random = new Random();
+
         protected internal event HeroStateHandler Created;
 
         protected internal event HeroStateHandler Killed;
@@ -36,6 +38,8 @@ namespace ConsoleWars
         protected internal event HeroStateHandler HeroInfo;
 
         protected internal event HeroStateHandler Hited;
+
+        protected internal event HeroStateHandler Attacked;
 
         private int _counter;
 
@@ -54,40 +58,45 @@ namespace ConsoleWars
                 handler(this, e);
         }
 
-        protected virtual void OnCreated(HeroEventArgs e)
+        protected virtual void Creating(HeroEventArgs e)
         {
             CallEvent(e, Created);
         }
 
-        protected virtual void OnKilled(HeroEventArgs e)
+        protected virtual void Killing(HeroEventArgs e)
         {
             CallEvent(e, Killed);
         }
 
-        protected virtual void GetLevel(HeroEventArgs e)
+        protected virtual void Leveling(HeroEventArgs e)
         {
             CallEvent(e, GotLevel);
         }
 
-        protected virtual void MoveDungeon(HeroEventArgs e)
+        protected virtual void MovingDungeon(HeroEventArgs e)
         {
             CallEvent(e, MovedToDungeon);
         }
 
-        protected virtual void Hit(HeroEventArgs e)
+        protected virtual void Hitting(HeroEventArgs e)
         {
             CallEvent(e, Hited);
         }
 
+        protected virtual void Attacking(HeroEventArgs e)
+        {
+            CallEvent(e, Attacked);
+        }
+
         public string HeroesInfo()
         {
-            return($"Hero name: {NickName}\r\nClass: {HeroType}\r\nLevel: {Level}, Experience: {Experience}\r\nCurrent features:\r\nStrength: {Strength}\r\n" +
+            return ($"Hero name: {NickName}\r\nClass: {HeroType}\r\nLevel: {Level}, Experience: {Experience}\r\nCurrent features:\r\nStrength: {Strength}\r\n" +
                 $"Vitality{Vitality}\r\nAgility: {Agility}\r\nMana: {Mana}");
         }
 
         protected internal virtual void HeroCreated()
         {
-            OnCreated(new HeroEventArgs($"Character {NickName}, class {HeroType} created!", this.HealPoints, this.Experience));
+            Creating(new HeroEventArgs($"Character {NickName}, class {HeroType} created!", this.HealPoints, this.Experience));
         }
 
         protected internal virtual void HeroKilled()
@@ -100,18 +109,44 @@ namespace ConsoleWars
             {
                 this.Experience = this.Experience - ExperienceBar / 4;
             }
-            OnKilled(new HeroEventArgs($"Character {NickName}, has been slain. You lost 25% of experience", 0, this.Experience));
+            Killing(new HeroEventArgs($"Character {NickName}, has been slain. You lost 25% of experience", 0, this.Experience));
         }
 
         protected internal void LevelUp()
         {
             if (this.Experience >= ExperienceBar)
-                GetLevel(new HeroEventArgs($"Your character get level {Level}. Your features increased!", HealPoints, 0));
+                Leveling(new HeroEventArgs($"Your character get level {Level}. Your features increased!", HealPoints, 0));
         }
 
-        protected interface void MoveForExp()
+        protected internal virtual void MoveForExp()
         {
-            MovedToDungeon(th)
+            MovingDungeon(new HeroEventArgs($"Your character come to dungeon", this.HealPoints, this.Experience));
+        }
+
+        protected internal virtual void DoHit()
+        {
+            int rand = random.Next(0, 100);
+            if (rand >= 50)
+            {
+                Hitting(new HeroEventArgs($"{NickName} dealed {Damage * 1.5} damage", this.HealPoints, this.Experience));
+            }
+            else
+            {
+                Hitting(new HeroEventArgs($"{NickName} dealed {Damage} damage", this.HealPoints, this.Experience));
+            }
+        }
+
+        protected internal virtual void GetAttack()
+        {
+            int rand = random.Next(0, 100);
+            if (rand >= 50)
+            {
+                Attacking(new HeroEventArgs($"{NickName} got {Damage * 1.5} damage", this.HealPoints-(int)(Damage*1.5), this.Experience));
+            }
+            else
+            {
+                Attacking(new HeroEventArgs($"{NickName} got {Damage} damage", this.HealPoints-(int)Damage, this.Experience));
+            }
         }
     }
 }
