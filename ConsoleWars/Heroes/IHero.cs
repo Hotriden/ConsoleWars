@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace ConsoleWars.Heroes
 {
-    interface IHero
+    public interface IHero
     {
-        string Hit();
-        string LevelUp();
-        string MoveOnLevel();
-        string CreateHero();
+        void Hit();
+        void LevelUp();
+        void MoveOnLevel();
+        void CreateHero();
+        void HeroKilled();
+        void GetDamage();
     }
 }

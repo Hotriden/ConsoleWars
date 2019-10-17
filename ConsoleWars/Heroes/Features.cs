@@ -14,8 +14,6 @@ namespace ConsoleWars.Heroes
 
         public HeroType HeroType { get; set; }
 
-        public Weapons Weapon { get; set; }
-
         public bool IsAlive { get; set; }
 
         public int Strength { get; set; }

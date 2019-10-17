@@ -43,6 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enemies\EarthElementalEnemy.cs" />
+    <Compile Include="Enemies\Enemy.cs" />
+    <Compile Include="Enemies\FireELementalEnemy.cs" />
+    <Compile Include="Enemies\FlameHoundEnemy.cs" />
+    <Compile Include="Enemies\GiantEnemy.cs" />
+    <Compile Include="Enemies\GoblinEnemy.cs" />
+    <Compile Include="Enemies\IEnemy.cs" />
+    <Compile Include="Enemies\OrcEnemy.cs" />
+    <Compile Include="Enemies\TrollEnemy.cs" />
+    <Compile Include="Enemies\WaterElementalEnemy.cs" />
     <Compile Include="Factory\HeroFactory.cs" />
     <Compile Include="Factory\MageFactory.cs" />
     <Compile Include="Factory\RogueFactory.cs" />
@@ -55,15 +65,22 @@
     <Compile Include="Heroes\MageHero.cs" />
     <Compile Include="Heroes\RogueHero.cs" />
     <Compile Include="Heroes\WarriorHero.cs" />
+    <Compile Include="Levels\EarthHallsLevel.cs" />
+    <Compile Include="Levels\FireHallsLevel.cs" />
+    <Compile Include="Levels\GiantCanyonLevel.cs" />
+    <Compile Include="Levels\GoblinFieldLevel.cs" />
+    <Compile Include="Levels\ILevel.cs" />
+    <Compile Include="Levels\Level.cs" />
+    <Compile Include="Levels\MoltenCoreLevel.cs" />
+    <Compile Include="Levels\OrcFortLevel.cs" />
+    <Compile Include="Levels\TrollJungleLevel.cs" />
+    <Compile Include="Levels\WaterHallsLevel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Enemies\" />
-    <Folder Include="Levels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

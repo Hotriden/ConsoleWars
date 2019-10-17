@@ -14,20 +14,5 @@ namespace ConsoleWars.Heroes
         {
             type = HeroType.Rogue;
         }
-
-        public string Hit()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string LevelUp()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string MoveOnLevel()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

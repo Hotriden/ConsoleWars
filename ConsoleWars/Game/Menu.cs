@@ -19,16 +19,17 @@ namespace ConsoleWars.Game
     {
         List<T> Heroes;
 
-        public void MainMenu(CharacterType characterType, HeroStateHandler created, HeroStateHandler killed,
+        public void MainMenu(CharacterType characterType, string nickName, HeroStateHandler created, HeroStateHandler killed,
             HeroStateHandler gotLevel, HeroStateHandler moveToDung, HeroStateHandler hited, 
             HeroStateHandler attacked, HeroStateHandler heroInfo)
         {
             T newHero = null;
 
-            switch (heroType)
+            switch (characterType)
             {
-                case HeroType.Warrior:
-                    newHero = new WarriorFactory
+                case CharacterType.Warrior:
+                    newHero = new WarriorHero(nickName);
+                    break;
             }
         }
     }

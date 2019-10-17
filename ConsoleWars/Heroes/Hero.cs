@@ -14,19 +14,9 @@ namespace ConsoleWars
         Rogue
     }
 
-    public enum Weapons
+    public abstract class Hero : Features, IHero
     {
-        Sword,
-        Axe,
-        Staff,
-        Dagger,
-        Mace
-    }
-
-    public abstract class Hero : Features
-    {
-        Random random = new Random();
-
+        #region Events
         protected internal event HeroStateHandler Created;
 
         protected internal event HeroStateHandler Killed;
@@ -40,8 +30,11 @@ namespace ConsoleWars
         protected internal event HeroStateHandler Hited;
 
         protected internal event HeroStateHandler Attacked;
+        #endregion
 
         private int _counter;
+
+        Random random = new Random();
 
         public Hero(string nickName)
         {
@@ -52,6 +45,7 @@ namespace ConsoleWars
             Level = 1;
         }
 
+        #region Methods
         private void CallEvent(HeroEventArgs e, HeroStateHandler handler)
         {
             if (handler != null && e != null)
@@ -93,13 +87,15 @@ namespace ConsoleWars
             return ($"Hero name: {NickName}\r\nClass: {HeroType}\r\nLevel: {Level}, Experience: {Experience}\r\nCurrent features:\r\nStrength: {Strength}\r\n" +
                 $"Vitality{Vitality}\r\nAgility: {Agility}\r\nMana: {Mana}");
         }
+        #endregion
 
-        protected internal virtual void HeroCreated()
+        #region Implement events
+        public virtual void CreateHero()
         {
             Creating(new HeroEventArgs($"Character {NickName}, class {HeroType} created!", this.HealPoints, this.Experience));
         }
 
-        protected internal virtual void HeroKilled()
+        public virtual void HeroKilled()
         {
             if (this.Experience <= ExperienceBar)
             {
@@ -112,18 +108,18 @@ namespace ConsoleWars
             Killing(new HeroEventArgs($"Character {NickName}, has been slain. You lost 25% of experience", 0, this.Experience));
         }
 
-        protected internal void LevelUp()
+        public virtual void LevelUp()
         {
             if (this.Experience >= ExperienceBar)
                 Leveling(new HeroEventArgs($"Your character get level {Level}. Your features increased!", HealPoints, 0));
         }
 
-        protected internal virtual void MoveForExp()
+        public virtual void MoveOnLevel()
         {
             MovingDungeon(new HeroEventArgs($"Your character come to dungeon", this.HealPoints, this.Experience));
         }
 
-        protected internal virtual void DoHit()
+        public virtual void Hit()
         {
             int rand = random.Next(0, 100);
             if (rand >= 50)
@@ -136,7 +132,7 @@ namespace ConsoleWars
             }
         }
 
-        protected internal virtual void GetAttack()
+        public virtual void GetDamage()
         {
             int rand = random.Next(0, 100);
             if (rand >= 50)
@@ -148,5 +144,6 @@ namespace ConsoleWars
                 Attacking(new HeroEventArgs($"{NickName} got {Damage} damage", this.HealPoints-(int)Damage, this.Experience));
             }
         }
+        #endregion
     }
 }
