@@ -14,7 +14,7 @@ namespace ConsoleWars
         Rogue
     }
 
-    public abstract class Hero : Features, IHero
+    public abstract class Hero : HeroFeatures, IHero
     {
         #region Events
         protected internal event HeroStateHandler Created;
@@ -32,7 +32,7 @@ namespace ConsoleWars
         protected internal event HeroStateHandler Attacked;
         #endregion
 
-        private int _counter;
+        static int _counter;
 
         Random random = new Random();
 

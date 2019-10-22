@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace ConsoleWars.Enemies
 {
-    interface IEnemy
+    public interface IEnemy
     {
+        void Create();
+        void Hit();
+        void Die();
     }
 }

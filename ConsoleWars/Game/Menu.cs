@@ -28,9 +28,76 @@ namespace ConsoleWars.Game
             switch (characterType)
             {
                 case CharacterType.Warrior:
-                    newHero = new WarriorHero(nickName);
+                    WarriorFactory warriorFactory = new WarriorFactory();
+                    newHero = warriorFactory.FactoryMethod(nickName) as T;
                     break;
+
+                case CharacterType.Mage:
+                    MageFactory mageFactory = new MageFactory();
+                    newHero = mageFactory.FactoryMethod(nickName) as T;
+                    break;
+
+                case CharacterType.Rogue:
+                    RogueFactory rogueFactory = new RogueFactory();
+                    newHero = rogueFactory.FactoryMethod(nickName) as T;
+                    break;
+
             }
+            if(newHero == null)
+            {
+                throw new Exception("Something goes wrong...");
+            }
+            if(Heroes == null)
+            {
+                Heroes = new List<T>() { newHero };
+            }
+            else
+            {
+                Heroes.Add(newHero);
+            }
+
+            newHero.Attacked += NewHero_Attacked;
+            newHero.Created += NewHero_Created;
+            newHero.GotLevel += NewHero_GotLevel;
+            newHero.HeroInfo += NewHero_HeroInfo;
+            newHero.Hited += NewHero_Hited;
+            newHero.Killed += NewHero_Killed;
+            newHero.MovedToDungeon += NewHero_MovedToDungeon;
+        }
+
+        private void NewHero_MovedToDungeon(object s, HeroEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void NewHero_Killed(object s, HeroEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void NewHero_Hited(object s, HeroEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void NewHero_HeroInfo(object s, HeroEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void NewHero_GotLevel(object s, HeroEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void NewHero_Created(object s, HeroEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void NewHero_Attacked(object s, HeroEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

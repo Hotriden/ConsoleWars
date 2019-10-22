@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Enemies\EarthElementalEnemy.cs" />
     <Compile Include="Enemies\Enemy.cs" />
+    <Compile Include="Enemies\EnemyFeatures.cs" />
     <Compile Include="Enemies\FireELementalEnemy.cs" />
     <Compile Include="Enemies\FlameHoundEnemy.cs" />
     <Compile Include="Enemies\GiantEnemy.cs" />
@@ -58,7 +59,7 @@
     <Compile Include="Factory\RogueFactory.cs" />
     <Compile Include="Factory\WarriorFactory.cs" />
     <Compile Include="Game\Menu.cs" />
-    <Compile Include="Heroes\Features.cs" />
+    <Compile Include="Heroes\HeroFeatures.cs" />
     <Compile Include="Heroes\Hero.cs" />
     <Compile Include="Heroes\HeroEventArgs.cs" />
     <Compile Include="Heroes\IHero.cs" />
