@@ -1,0 +1,10 @@
+C:\Users\Вячеслав\source\repos\ConsoleWars\ConsoleWars\bin\Debug\ConsoleWars.exe.config
+C:\Users\Вячеслав\source\repos\ConsoleWars\ConsoleWars\bin\Debug\ConsoleWars.exe
+C:\Users\Вячеслав\source\repos\ConsoleWars\ConsoleWars\bin\Debug\ConsoleWars.pdb
+C:\Users\Вячеслав\source\repos\ConsoleWars\ConsoleWars\obj\Debug\ConsoleWars.csprojAssemblyReference.cache
+C:\Users\Вячеслав\source\repos\ConsoleWars\ConsoleWars\obj\Debug\ConsoleWars.csproj.CoreCompileInputs.cache
+C:\Users\Вячеслав\source\repos\ConsoleWars\ConsoleWars\obj\Debug\ConsoleWars.exe
+C:\Users\Вячеслав\source\repos\ConsoleWars\ConsoleWars\obj\Debug\ConsoleWars.pdb
+D:\ConsoleWars\ConsoleWars\obj\Debug\ConsoleWars.csprojAssemblyReference.cache
+D:\ConsoleWars\ConsoleWars\obj\Debug\ConsoleWars.exe
+D:\ConsoleWars\ConsoleWars\obj\Debug\ConsoleWars.pdb

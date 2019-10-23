@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9D5EEF85-1A85-4C92-A3A9-BE5C5904DB7C}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ConsoleWars</RootNamespace>
+    <AssemblyName>ConsoleWars</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dungeons\Dungeon.cs" />
+    <Compile Include="Dungeons\EarthHallsDungeon.cs" />
+    <Compile Include="Dungeons\FireHallsDungeon.cs" />
+    <Compile Include="Dungeons\GiantCanyonDungeon.cs" />
+    <Compile Include="Dungeons\GoblinFieldDungeon.cs" />
+    <Compile Include="Dungeons\IDungeon.cs" />
+    <Compile Include="Dungeons\MoltenCoreDungeon.cs" />
+    <Compile Include="Dungeons\OrcFortDungeon.cs" />
+    <Compile Include="Dungeons\TrollJungleDungeon.cs" />
+    <Compile Include="Dungeons\WaterHallsDungeon.cs" />
+    <Compile Include="Enemies\EarthElementalEnemy.cs" />
+    <Compile Include="Enemies\Enemy.cs" />
+    <Compile Include="Enemies\EnemyFeature.cs" />
+    <Compile Include="Enemies\FireELementalEnemy.cs" />
+    <Compile Include="Enemies\FlameHoundEnemy.cs" />
+    <Compile Include="Enemies\GiantEnemy.cs" />
+    <Compile Include="Enemies\GoblinEnemy.cs" />
+    <Compile Include="Enemies\IEnemy.cs" />
+    <Compile Include="Enemies\OrcEnemy.cs" />
+    <Compile Include="Enemies\TrollEnemy.cs" />
+    <Compile Include="Enemies\WaterElementalEnemy.cs" />
+    <Compile Include="Game\Menu.cs" />
+    <Compile Include="Handlers\ConsoleWarsEventArgs.cs" />
+    <Compile Include="Heroes\Features.cs" />
+    <Compile Include="Heroes\Hero.cs" />
+    <Compile Include="Heroes\IHero.cs" />
+    <Compile Include="Heroes\MageHero.cs" />
+    <Compile Include="Heroes\RogueHero.cs" />
+    <Compile Include="Heroes\WarriorHero.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
