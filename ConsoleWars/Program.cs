@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsoleWars.Game;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,62 +9,71 @@ namespace ConsoleWars
 {
     class Program
     {
-        private IMagic Magic;
-
-        public void SetMagic(IMagic magic)
-        {
-            Magic = magic;
-        }
-
         static void Main(string[] args)
         {
-            Program pr = new Program();
-            pr.InputYourMagic();
-            Console.ReadKey();
+            Menu<Hero> menu = new Menu<Hero>();
+            bool alive = true;
+            while (alive == true)
+            {
+                Console.WriteLine("Make your choise");
+                Console.WriteLine("1: Create new hero\r\n2:Continue gane\r\n3:Show all characters\r\n4:Close game");
+                try
+                {
+                    int command = Convert.ToInt32(Console.ReadLine());
+
+                    switch (command)
+                    {
+                        case 1:
+                            CreateCharacter(menu);
+                            break;
+                        case 2:
+                            ContinueGame(menu);
+                            break;
+                        case 3:
+                            ShowAll(menu);
+                            break;
+                        case 4:
+                            alive = false;
+                            continue;
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
         }
 
-        public void InputYourMagic()
+        private static void CreateCharacter(Menu<Hero> hero)
         {
-            Program program = new Program();
-            Console.WriteLine("Choose your magic!\r\n1 - WhiteMagic\r\n2 - BlackMagic");
-            string input = Console.ReadLine();
-            int result = Convert.ToInt32(input);
-            if (result == 1)
+            HeroType type = 0;
+
+            Console.WriteLine("Input character nickname");
+            string name = Convert.ToString(Console.ReadLine());
+            if (name == null)
             {
-                program.SetMagic(new WhiteMagic());
-                program.Magic.DoMagic();
+                Console.WriteLine("Invalid nickname input");
             }
-            else if (result == 2)
+            Console.WriteLine("Choose type of character\r\n1: Warrior\r\n2: Mage\r\n3:Rogue");
+            int com = Convert.ToInt32(Console.ReadLine());
+            if(com == 1)
             {
-                program.SetMagic(new BlackMagic());
-                program.Magic.DoMagic();
+                type = HeroType.Warrior;
+            }
+            else if (com == 2)
+            {
+                type = HeroType.Mage;
+            }
+            else if (com == 3)
+            {
+                type = HeroType.Rogue;
             }
             else
             {
-                Console.WriteLine("There is no magic here! Try again");
-                InputYourMagic();
+                Console.WriteLine("Invalid cast");
             }
-        }
-    }
+            hero.CreateCharacter(type, name, )
 
-    interface IMagic
-    {
-        void DoMagic();
-    }
-
-    public class BlackMagic : IMagic
-    {
-        public void DoMagic()
-        {
-            Console.WriteLine("It's time for black magic");
-        }
-    }
-
-    public class WhiteMagic : IMagic
-    {
-        public void DoMagic()
-        {
-            Console.WriteLine("You shell not pass! It's white power");
         }
     }
 }

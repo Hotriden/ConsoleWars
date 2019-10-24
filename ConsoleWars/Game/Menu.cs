@@ -18,7 +18,7 @@ namespace ConsoleWars.Game
     public class Menu<T> where T:Hero
     {
         List<T> Heroes;
-        public void MainMenu(CharacterType characterType, string nickName, ConsoleWarsStateHandler created, 
+        public void CreateCharacter(CharacterType characterType, string nickName, ConsoleWarsStateHandler created, 
             ConsoleWarsStateHandler killed, ConsoleWarsStateHandler gotLevel, 
             ConsoleWarsStateHandler moveToDung, ConsoleWarsStateHandler hited,
             ConsoleWarsStateHandler attacked, ConsoleWarsStateHandler heroInfo)
@@ -57,7 +57,10 @@ namespace ConsoleWars.Game
 
             newHero.CreateHero();
         }
-        
 
+        public void Create(string nickName, CharacterType type)
+        {
+            //T newHero = Fin
+        }
     }
 }
