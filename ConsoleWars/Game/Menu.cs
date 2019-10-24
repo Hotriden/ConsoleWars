@@ -8,17 +8,10 @@ using System.Threading.Tasks;
 
 namespace ConsoleWars.Game
 {
-    public enum CharacterType
-    {
-        Warrior,
-        Mage,
-        Rogue
-    }
-
     public class Menu<T> where T:Hero
     {
         List<T> Heroes;
-        public void CreateCharacter(CharacterType characterType, string nickName, ConsoleWarsStateHandler created, 
+        public void CreateCharacter(HeroType characterType, string nickName, ConsoleWarsStateHandler created, 
             ConsoleWarsStateHandler killed, ConsoleWarsStateHandler gotLevel, 
             ConsoleWarsStateHandler moveToDung, ConsoleWarsStateHandler hited,
             ConsoleWarsStateHandler attacked, ConsoleWarsStateHandler heroInfo)
@@ -27,13 +20,13 @@ namespace ConsoleWars.Game
 
             switch (characterType)
             {
-                case CharacterType.Warrior:
+                case HeroType.Warrior:
                     newHero = new WarriorHero(nickName) as T;
                     break;
-                case CharacterType.Mage:
+                case HeroType.Mage:
                     newHero = new MageHero(nickName) as T;
                     break;
-                case CharacterType.Rogue:
+                case HeroType.Rogue:
                     newHero = new RogueHero(nickName) as T;
                     break;
             }
@@ -58,9 +51,24 @@ namespace ConsoleWars.Game
             newHero.CreateHero();
         }
 
-        public void Create(string nickName, CharacterType type)
+        public void Create(string nickName, HeroType type)
         {
             //T newHero = Fin
+        }
+
+        public void AllCharacters()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Hero FindCharacter(string nickName)
+        {
+            foreach(var b in Heroes)
+            {
+                if (b.NickName == nickName)
+                    return b;
+            }
+            return null;
         }
     }
 }

@@ -8,3 +8,9 @@ C:\Users\Вячеслав\source\repos\ConsoleWars\ConsoleWars\obj\Debug\Console
 D:\ConsoleWars\ConsoleWars\obj\Debug\ConsoleWars.csprojAssemblyReference.cache
 D:\ConsoleWars\ConsoleWars\obj\Debug\ConsoleWars.exe
 D:\ConsoleWars\ConsoleWars\obj\Debug\ConsoleWars.pdb
+D:\CW\ConsoleWars\ConsoleWars\bin\Debug\ConsoleWars.exe.config
+D:\CW\ConsoleWars\ConsoleWars\bin\Debug\ConsoleWars.exe
+D:\CW\ConsoleWars\ConsoleWars\bin\Debug\ConsoleWars.pdb
+D:\CW\ConsoleWars\ConsoleWars\obj\Debug\ConsoleWars.csprojAssemblyReference.cache
+D:\CW\ConsoleWars\ConsoleWars\obj\Debug\ConsoleWars.exe
+D:\CW\ConsoleWars\ConsoleWars\obj\Debug\ConsoleWars.pdb
