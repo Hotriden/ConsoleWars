@@ -1,4 +1,5 @@
-﻿using ConsoleWars.Handlers;
+﻿using ConsoleWars.EF;
+using ConsoleWars.Handlers;
 using ConsoleWars.Heroes;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,13 @@ namespace ConsoleWars.Game
 {
     public class Menu<T> where T:Hero
     {
-        List<T> Heroes;
+        private HeroContext heroConext;
+
+        public Menu() 
+        {
+            heroConext = new HeroContext();
+        }
+
         public void CreateCharacter(HeroType characterType, string nickName, ConsoleWarsStateHandler created, 
             ConsoleWarsStateHandler killed, ConsoleWarsStateHandler gotLevel, 
             ConsoleWarsStateHandler moveToDung, ConsoleWarsStateHandler hited,
@@ -33,11 +40,9 @@ namespace ConsoleWars.Game
 
             if (newHero == null)
                 throw new Exception("Error! Hero doesn't created!");
-            if (Heroes == null)
-                Heroes = new List<T> { newHero };
             else
             {
-                Heroes.Add(newHero);
+                heroConext.Features.Add(newHero);
             }
 
             newHero.Created += created;
@@ -51,11 +56,6 @@ namespace ConsoleWars.Game
             newHero.CreateHero();
         }
 
-        public void Create(string nickName, HeroType type)
-        {
-            //T newHero = Fin
-        }
-
         public void AllCharacters()
         {
             throw new NotImplementedException();
@@ -63,7 +63,7 @@ namespace ConsoleWars.Game
 
         public Hero FindCharacter(string nickName)
         {
-            foreach(var b in Heroes)
+            foreach(var b in heroConext.Features)
             {
                 if (b.NickName == nickName)
                     return b;
