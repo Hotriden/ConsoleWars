@@ -6,13 +6,22 @@ using System.Threading.Tasks;
 
 namespace ConsoleWars.Heroes
 {
-    class WarriorHero : Hero, IHero
+    class WarriorHero:Hero
     {
-        HeroType type;
-
-        public WarriorHero(string name): base(name)
+        public WarriorHero(string nickName)
         {
-            type = HeroType.Warrior;
+            NickName = nickName;
+            HeroType = HeroType.Warrior;
+            IsAlive = true;
+            Strength = 35;
+            Vitality = 25;
+            HealPoints = Vitality*2;
+            Agility = 15;
+            Mana = 10;
+            Level = 1;
+            Experience = 0;
+            ExperienceBar = 100;
+            Damage = 20;
         }
     }
 }

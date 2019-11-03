@@ -9,66 +9,78 @@ using System.Threading.Tasks;
 
 namespace ConsoleWars.Game
 {
-    public class Menu<T> where T:Hero
+    public class Menu
     {
-        private HeroContext heroConext;
+        private HeroContext heroContext;
 
         public Menu() 
         {
-            heroConext = new HeroContext();
+            heroContext = new HeroContext();
         }
 
-        public void CreateCharacter(HeroType characterType, string nickName, ConsoleWarsStateHandler created, 
+        internal void ChooseHero(string nickname, ConsoleWarsStateHandler created, 
             ConsoleWarsStateHandler killed, ConsoleWarsStateHandler gotLevel, 
             ConsoleWarsStateHandler moveToDung, ConsoleWarsStateHandler hited,
             ConsoleWarsStateHandler attacked, ConsoleWarsStateHandler heroInfo)
         {
-            T newHero = null;
+            Hero hero = new WarriorHero(nickname);
 
-            switch (characterType)
+            if (nickname == null)
+                throw new Exception("Error! Hero doesn't exist!");
+            else if(heroContext.Features.Where(x=>x.NickName==nickname)==null)
             {
-                case HeroType.Warrior:
-                    newHero = new WarriorHero(nickName) as T;
-                    break;
-                case HeroType.Mage:
-                    newHero = new MageHero(nickName) as T;
-                    break;
-                case HeroType.Rogue:
-                    newHero = new RogueHero(nickName) as T;
-                    break;
+                throw new Exception("Hero with such nickname doesn't exist");
             }
-
-            if (newHero == null)
-                throw new Exception("Error! Hero doesn't created!");
             else
             {
-                heroConext.Features.Add(newHero);
+                hero = heroContext.Features.Where(x => x.NickName == nickname).First() as Hero;
             }
 
-            newHero.Created += created;
-            newHero.Attacked += attacked;
-            newHero.GotLevel += gotLevel;
-            newHero.HeroInfo += heroInfo;
-            newHero.Hited += hited;
-            newHero.Killed += killed;
-            newHero.MovedToDungeon += moveToDung;
-
-            newHero.CreateHero();
+            hero.Created += created;
+            hero.Attacked += attacked;
+            hero.GotLevel += gotLevel;
+            hero.HeroInfo += heroInfo;
+            hero.Hited += hited;
+            hero.Killed += killed;
+            hero.MovedToDungeon += moveToDung;
         }
 
-        public void AllCharacters()
+        internal void AllCharacters()
         {
-            throw new NotImplementedException();
-        }
-
-        public Hero FindCharacter(string nickName)
-        {
-            foreach(var b in heroConext.Features)
+            var result = heroContext.Features.AsEnumerable().ToList();
+            foreach (var r in result)
             {
-                if (b.NickName == nickName)
-                    return b;
+                Console.WriteLine($"{r.NickName} - {r.Level} - {r.Level}\r\n");
             }
-            return null;
+        }
+
+        internal Hero FindCharacter(string nickName)
+        {
+            return heroContext.Features.Where(x => x.NickName == nickName).First() as Hero;
+        }
+
+        internal string NewHero(string nickname, HeroType type)
+        {
+            Hero hero = null;
+
+            if (heroContext.Features.Any(x => x.NickName == nickname) == true)
+            {
+                return "Character with such nickname already exist.\r\nTry to choose another one";
+            }
+            else
+            {
+                if (type == HeroType.Warrior) 
+                    hero = new WarriorHero(nickname);
+                if (type == HeroType.Mage)
+                    hero = new MageHero(nickname);
+                if (type == HeroType.Rogue)
+                    hero = new RogueHero(nickname);
+                else
+                    return "Some thing goes wrong! Check this out";
+                heroContext.Features.Add(hero);
+                heroContext.SaveChanges();
+                return "Character successful created";
+            }
         }
     }
 }

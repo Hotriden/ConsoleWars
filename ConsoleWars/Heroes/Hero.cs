@@ -15,7 +15,7 @@ namespace ConsoleWars
         Rogue
     }
 
-    public abstract class Hero : Features, IHero
+    internal abstract class Hero : Features, IHero
     {
         #region Events
         protected internal event ConsoleWarsStateHandler Created;
@@ -33,18 +33,9 @@ namespace ConsoleWars
         protected internal event ConsoleWarsStateHandler Attacked;
         #endregion
 
-        private int _counter;
+        private static int _counter;
 
         Random random = new Random();
-
-        public Hero(string nickName)
-        {
-            NickName = nickName;
-            _counter++;
-            Id = _counter;
-            Experience = 0;
-            Level = 1;
-        }
 
         #region Methods
         private void CallEvent(ConsoleWarsEventArgs e, ConsoleWarsStateHandler handler)
@@ -78,6 +69,11 @@ namespace ConsoleWars
             CallEvent(e, Hited);
         }
 
+        protected virtual void HeroInf(ConsoleWarsEventArgs e)
+        {
+            CallEvent(e, HeroInfo);
+        }
+
         protected virtual void Attacking(ConsoleWarsEventArgs e)
         {
             CallEvent(e, Attacked);
@@ -90,7 +86,7 @@ namespace ConsoleWars
         }
         #endregion
 
-        #region Implement events
+        #region Based implementation of events
         public virtual void CreateHero()
         {
             Creating(new ConsoleWarsEventArgs($"Character {NickName}, class {HeroType} created!", this.HealPoints, this.Experience));

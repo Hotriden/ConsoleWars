@@ -1,4 +1,5 @@
-﻿using ConsoleWars.Game;
+﻿using ConsoleWars.EF;
+using ConsoleWars.Game;
 using ConsoleWars.Handlers;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,16 @@ namespace ConsoleWars.Commands
 {
     internal class MenuCommands
     {
-        internal static void MainMenu()
+        private HeroContext _heroContext;
+
+        public MenuCommands()
         {
-            Menu<Hero> menu = new Menu<Hero>();
+            _heroContext = new HeroContext();
+        }
+
+        internal void MainMenu()
+        {
+            Menu menu = new Menu();
             bool alive = true;
             while (alive == true)
             {
@@ -45,17 +53,17 @@ namespace ConsoleWars.Commands
             }
         }
 
-        private static void CreateCharacter(Menu<Hero> hero)
+        private void CreateCharacter(Menu menu)
         {
-            HeroType type = 0;
-
             Console.WriteLine("Input character nickname");
             string name = Convert.ToString(Console.ReadLine());
+            HeroType type = HeroType.Warrior;
             if (name == null)
             {
                 Console.WriteLine("Invalid nickname input");
+                CreateCharacter(menu);
             }
-            Console.WriteLine("Choose type of character\r\n1: Warrior\r\n2: Mage\r\n3:Rogue");
+            Console.WriteLine("Choose type of character\r\n1: Warrior\r\n2: Mage\r\n3: Rogue");
             int com = Convert.ToInt32(Console.ReadLine());
             if (com == 1)
             {
@@ -72,14 +80,13 @@ namespace ConsoleWars.Commands
             else
             {
                 Console.WriteLine("Invalid cast");
+                CreateCharacter(menu);
             }
-            hero.CreateCharacter(type, name, CreateStateHandler, KilledStateHandler,
-                GetLevelStateHandler, MoveToDungStateHandler, HitStateHandler,
-                AttackStateHandler, HeroInfoStateHandler);
-            AfterCreating(hero);
+            Console.WriteLine(menu.NewHero(name, type));
+            AfterCreating(menu);
         }
 
-        private static void AfterCreating(Menu<Hero> hero)
+        private void AfterCreating(Menu menu)
         {
             Console.WriteLine("To start game press 1\r\nBack to main menu press 2");
             int com = Convert.ToInt32(Console.ReadLine());
@@ -92,24 +99,24 @@ namespace ConsoleWars.Commands
             else
             {
                 Console.WriteLine("Invalid operation. Try again!");
-                AfterCreating(hero);
+                AfterCreating(menu);
             }
         }
 
 
-        private static void StartGame()
+        private void StartGame()
         {
             throw new NotImplementedException();
         }
 
-        private static void ContinueGame(Menu<Hero> hero)
+        private void ContinueGame(Menu menu)
         {
             throw new NotImplementedException();
         }
 
-        private static void ShowAll(Menu<Hero> hero)
+        private void ShowAll(Menu menu)
         {
-            //////////////////////////////////
+            menu.AllCharacters();
         }
 
         #region State Handlers

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleWars.Heroes
 {
-    public abstract class Features
+    public class Features
     {
         public int Id { get; set; }
 

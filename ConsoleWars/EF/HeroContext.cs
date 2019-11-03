@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleWars.EF
 {
-    class HeroContext:DbContext
+    class HeroContext : DbContext
     {
         public DbSet<Features> Features { get; set; }
+
     }
 }

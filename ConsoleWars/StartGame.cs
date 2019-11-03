@@ -13,7 +13,8 @@ namespace ConsoleWars
     {
         public static void Main(string[] args)
         {
-            MenuCommands.MainMenu();
+            MenuCommands menu = new MenuCommands();
+            menu.MainMenu();
         }
     }
 }
