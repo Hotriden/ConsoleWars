@@ -44,6 +44,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.4.0.0-beta-0134\lib\net45\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -88,6 +91,7 @@
     <Compile Include="Heroes\MageHero.cs" />
     <Compile Include="Heroes\RogueHero.cs" />
     <Compile Include="Heroes\WarriorHero.cs" />
+    <Compile Include="Ninject\NinjectService.cs" />
     <Compile Include="StartGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -14,11 +14,11 @@ namespace ConsoleWars.Game
 {
     public class Menu
     {
-        IUnitOfWork _unitOfWork;
+        IUnitOfWork DataBase;
 
         public Menu(IUnitOfWork unitOfWork) 
         {
-            _unitOfWork = unitOfWork;
+            DataBase = unitOfWork;
         }
 
         internal Hero MapperToHero(HeroFeature feature)
@@ -53,13 +53,13 @@ namespace ConsoleWars.Game
 
             if (nickname == null)
                 throw new Exception("Error! Hero doesn't exist!");
-            else if(_unitOfWork.Features.Get(nickname)!=null)
+            else if(DataBase.Features.Get(nickname)!=null)
             {
                 throw new Exception("Hero with such nickname doesn't exist");
             }
             else
             {
-                hero = MapperToHero((_unitOfWork.Features.Get(nickname)));
+                hero = MapperToHero((DataBase.Features.Get(nickname)));
             }
 
             hero.Created += created;
@@ -73,7 +73,7 @@ namespace ConsoleWars.Game
 
         internal void AllCharacters()
         {
-            var result = _unitOfWork.Features.GetAll();
+            var result = DataBase.Features.GetAll();
             foreach (var r in result)
             {
                 Console.WriteLine($"{r.NickName} - {r.Level} - {r.Level}\r\n");
@@ -82,14 +82,14 @@ namespace ConsoleWars.Game
 
         internal Hero FindCharacter(string nickName)
         {
-            return MapperToHero((_unitOfWork.Features.Get(nickName)));
+            return MapperToHero((DataBase.Features.Get(nickName)));
         }
 
         internal string NewHero(string nickname, HeroType type)
         {
             Hero hero = null;
 
-            if (_unitOfWork.Features.Get(nickname) != null)
+            if (DataBase.Features.Get(nickname) != null)
             {
                 return "Character with such nickname already exist.\r\nTry to choose another one";
             }
@@ -103,8 +103,8 @@ namespace ConsoleWars.Game
                     hero = new RogueHero(nickname);
                 else
                     return "Some thing goes wrong! Check this out";
-                _unitOfWork.Features.Create(MapperToFeature(hero));
-                _unitOfWork.Save();
+                DataBase.Features.Create(MapperToFeature(hero));
+                DataBase.Save();
                 return "Character successful created";
             }
         }

@@ -1,4 +1,5 @@
 ﻿using ConsoleWars.Commands;
+using ConsoleWars.DAL.Interfaces;
 using ConsoleWars.Game;
 using ConsoleWars.Handlers;
 using System;
@@ -11,9 +12,16 @@ namespace ConsoleWars
 {
     class StartGame
     {
+        IUnitOfWork DataBase;
+        MenuCommands menu;
+
+        public StartGame(IUnitOfWork unitOfWork)
+        {
+            DataBase = unitOfWork;
+            menu = new MenuCommands(DataBase);
+        }
         public static void Main(string[] args)
         {
-            MenuCommands menu = new MenuCommands();
             menu.MainMenu();
         }
     }

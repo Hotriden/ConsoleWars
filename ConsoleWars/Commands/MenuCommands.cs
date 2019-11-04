@@ -12,17 +12,15 @@ namespace ConsoleWars.Commands
 {
     internal class MenuCommands
     {
-        private HeroContext _heroContext;
-        private IUnitOfWork _unitOfWork;
-
-        public MenuCommands()
+        private IUnitOfWork DataBase;
+        public MenuCommands(IUnitOfWork db)
         {
-            _heroContext = new HeroContext();
+            DataBase = db;
         }
 
         internal void MainMenu()
         {
-            Menu menu = new Menu(_unitOfWork);
+            Menu menu = new Menu(DataBase);
             bool alive = true;
             while (alive == true)
             {

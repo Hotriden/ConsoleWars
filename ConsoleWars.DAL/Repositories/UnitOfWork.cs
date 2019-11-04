@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleWars.DAL.Repositories
 {
-    class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private HeroContext context;
         private HeroFeatureRepository heroRepository;
