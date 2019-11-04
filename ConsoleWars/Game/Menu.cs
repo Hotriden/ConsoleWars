@@ -1,4 +1,5 @@
-﻿using ConsoleWars.EF;
+﻿using ConsoleWars.DAL.Interfaces;
+using ConsoleWars.EF;
 using ConsoleWars.Handlers;
 using ConsoleWars.Heroes;
 using System;
@@ -6,16 +7,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using ConsoleWars.DAL.Entities;
 
 namespace ConsoleWars.Game
 {
     public class Menu
     {
-        private HeroContext heroContext;
+        IUnitOfWork _unitOfWork;
 
-        public Menu() 
+        public Menu(IUnitOfWork unitOfWork) 
         {
-            heroContext = new HeroContext();
+            _unitOfWork = unitOfWork;
+        }
+
+        internal Hero MapperToHero(HeroFeature feature)
+        {
+            var mapperConfiguration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Hero, HeroFeature>();
+                cfg.CreateMap<HeroFeature, Hero>();
+            });
+            mapperConfiguration.AssertConfigurationIsValid();
+            var mapper = mapperConfiguration.CreateMapper();
+            return mapper.Map<Hero>(feature);
+        }
+
+        internal HeroFeature MapperToFeature(Hero hero)
+        {
+            var mapperConfiguration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<HeroFeature, Hero>();
+            });
+            mapperConfiguration.AssertConfigurationIsValid();
+            var mapper = mapperConfiguration.CreateMapper();
+            return mapper.Map<HeroFeature>(hero);
         }
 
         internal void ChooseHero(string nickname, ConsoleWarsStateHandler created, 
@@ -27,13 +53,13 @@ namespace ConsoleWars.Game
 
             if (nickname == null)
                 throw new Exception("Error! Hero doesn't exist!");
-            else if(heroContext.Features.Where(x=>x.NickName==nickname)==null)
+            else if(_unitOfWork.Features.Get(nickname)!=null)
             {
                 throw new Exception("Hero with such nickname doesn't exist");
             }
             else
             {
-                hero = heroContext.Features.Where(x => x.NickName == nickname).First() as Hero;
+                hero = MapperToHero((_unitOfWork.Features.Get(nickname)));
             }
 
             hero.Created += created;
@@ -47,7 +73,7 @@ namespace ConsoleWars.Game
 
         internal void AllCharacters()
         {
-            var result = heroContext.Features.AsEnumerable().ToList();
+            var result = _unitOfWork.Features.GetAll();
             foreach (var r in result)
             {
                 Console.WriteLine($"{r.NickName} - {r.Level} - {r.Level}\r\n");
@@ -56,14 +82,14 @@ namespace ConsoleWars.Game
 
         internal Hero FindCharacter(string nickName)
         {
-            return heroContext.Features.Where(x => x.NickName == nickName).First() as Hero;
+            return MapperToHero((_unitOfWork.Features.Get(nickName)));
         }
 
         internal string NewHero(string nickname, HeroType type)
         {
             Hero hero = null;
 
-            if (heroContext.Features.Any(x => x.NickName == nickname) == true)
+            if (_unitOfWork.Features.Get(nickname) != null)
             {
                 return "Character with such nickname already exist.\r\nTry to choose another one";
             }
@@ -77,8 +103,8 @@ namespace ConsoleWars.Game
                     hero = new RogueHero(nickname);
                 else
                     return "Some thing goes wrong! Check this out";
-                heroContext.Features.Add(hero);
-                heroContext.SaveChanges();
+                _unitOfWork.Features.Create(MapperToFeature(hero));
+                _unitOfWork.Save();
                 return "Character successful created";
             }
         }

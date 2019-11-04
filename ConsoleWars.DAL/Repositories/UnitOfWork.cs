@@ -1,4 +1,5 @@
-﻿using ConsoleWars.DAL.Entities;
+﻿using ConsoleWars.DAL.EF;
+using ConsoleWars.DAL.Entities;
 using ConsoleWars.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,16 +11,44 @@ namespace ConsoleWars.DAL.Repositories
 {
     class UnitOfWork : IUnitOfWork
     {
-        public IRepository<HeroFeature> Features => throw new NotImplementedException();
+        private HeroContext context;
+        private HeroFeatureRepository heroRepository;
+
+        public IRepository<HeroFeature> Features
+        {
+            get
+            {
+                if(heroRepository == null)
+                {
+                    heroRepository = new HeroFeatureRepository(context);
+                }
+                return heroRepository;
+            }
+        }
+
+        private bool disposed = false;
+
+        public virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    context.Dispose();
+                }
+                this.disposed = true;
+            }
+        }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            context.SaveChanges();
         }
     }
 }

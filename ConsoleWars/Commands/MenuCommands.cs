@@ -1,4 +1,5 @@
-﻿using ConsoleWars.EF;
+﻿using ConsoleWars.DAL.Interfaces;
+using ConsoleWars.EF;
 using ConsoleWars.Game;
 using ConsoleWars.Handlers;
 using System;
@@ -12,6 +13,7 @@ namespace ConsoleWars.Commands
     internal class MenuCommands
     {
         private HeroContext _heroContext;
+        private IUnitOfWork _unitOfWork;
 
         public MenuCommands()
         {
@@ -20,7 +22,7 @@ namespace ConsoleWars.Commands
 
         internal void MainMenu()
         {
-            Menu menu = new Menu();
+            Menu menu = new Menu(_unitOfWork);
             bool alive = true;
             while (alive == true)
             {

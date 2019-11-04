@@ -1,7 +1,9 @@
-﻿using ConsoleWars.DAL.Entities;
+﻿using ConsoleWars.DAL.EF;
+using ConsoleWars.DAL.Entities;
 using ConsoleWars.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,29 +12,38 @@ namespace ConsoleWars.DAL.Repositories
 {
     class HeroFeatureRepository : IRepository<HeroFeature>
     {
+        private HeroContext _heroContext;
+
+        public HeroFeatureRepository(HeroContext heroContext)
+        {
+            _heroContext = heroContext;
+        }
+
         public void Create(HeroFeature item)
         {
-            throw new NotImplementedException();
+            _heroContext.Features.Add(item);
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            HeroFeature heroFeature = _heroContext.Features.Find(id);
+            if (heroFeature != null)
+                _heroContext.Features.Remove(heroFeature);
         }
 
-        public HeroFeature Get(int indentity)
+        public HeroFeature Get(string nick)
         {
-            throw new NotImplementedException();
+            return _heroContext.Features.Find(nick);
         }
 
         public IEnumerable<HeroFeature> GetAll()
         {
-            throw new NotImplementedException();
+            return _heroContext.Features;
         }
 
         public void Update(HeroFeature item)
         {
-            throw new NotImplementedException();
+            _heroContext.Entry(item).State = EntityState.Modified;
         }
     }
 }
