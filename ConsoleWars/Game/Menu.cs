@@ -9,16 +9,25 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using ConsoleWars.DAL.Entities;
+using ConsoleWars.DAL.Repositories;
+using ConsoleWars.DAL.Dapper;
 
 namespace ConsoleWars.Game
 {
     public class Menu
     {
-        IUnitOfWork DataBase;
+        IUnitOfWork DataBase; // EF
+        HeroDapper dapper;
 
-        public Menu(IUnitOfWork unitOfWork) 
+        //public Menu(IUnitOfWork unitOfWork) 
+        //{
+        //    DataBase = unitOfWork;
+        //    dapper = new HeroDapper();
+        //}
+
+        public Menu()
         {
-            DataBase = unitOfWork;
+            dapper = new HeroDapper();
         }
 
         internal Hero MapperToHero(HeroFeature feature)
@@ -71,13 +80,16 @@ namespace ConsoleWars.Game
             hero.MovedToDungeon += moveToDung;
         }
 
-        internal void AllCharacters()
+        internal List<HeroFeature> AllCharacters()
         {
-            var result = DataBase.Features.GetAll();
-            foreach (var r in result)
-            {
-                Console.WriteLine($"{r.NickName} - {r.Level} - {r.Level}\r\n");
-            }
+            //var result = DataBase.Features.GetAll();
+            //foreach (var r in result)
+            //{
+            //    Console.WriteLine($"{r.NickName} - {r.Level} - {r.Level}\r\n");
+            //}
+
+            var result = dapper.GetHeroes();
+            return result;
         }
 
         internal Hero FindCharacter(string nickName)

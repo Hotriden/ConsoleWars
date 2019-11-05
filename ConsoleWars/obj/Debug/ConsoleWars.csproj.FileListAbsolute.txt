@@ -19,3 +19,15 @@ D:\CW\ConsoleWars\ConsoleWars\bin\Debug\EntityFramework.xml
 D:\CW\ConsoleWars\ConsoleWars\bin\Debug\EntityFramework.SqlServer.xml
 D:\CW\ConsoleWars\ConsoleWars\obj\Debug\ConsoleWars.csproj.CopyComplete
 D:\CW\ConsoleWars\ConsoleWars\obj\Debug\ConsoleWars.csprojAssemblyReference.cache
+D:\CW\ConsoleWars\ConsoleWars\bin\Debug\AutoMapper.dll
+D:\CW\ConsoleWars\ConsoleWars\bin\Debug\ConsoleWars.DAL.exe
+D:\CW\ConsoleWars\ConsoleWars\bin\Debug\Ninject.dll
+D:\CW\ConsoleWars\ConsoleWars\bin\Debug\Dapper.dll
+D:\CW\ConsoleWars\ConsoleWars\bin\Debug\ConsoleWars.DAL.pdb
+D:\CW\ConsoleWars\ConsoleWars\bin\Debug\ConsoleWars.DAL.exe.config
+D:\CW\ConsoleWars\ConsoleWars\bin\Debug\AutoMapper.pdb
+D:\CW\ConsoleWars\ConsoleWars\bin\Debug\AutoMapper.xml
+D:\CW\ConsoleWars\ConsoleWars\bin\Debug\Ninject.xml
+D:\CW\ConsoleWars\ConsoleWars\bin\Debug\Dapper.xml
+D:\CW\ConsoleWars\ConsoleWars\bin\Debug\ru\EntityFramework.resources.dll
+D:\CW\ConsoleWars\ConsoleWars\bin\Debug\ru\EntityFramework.SqlServer.resources.dll

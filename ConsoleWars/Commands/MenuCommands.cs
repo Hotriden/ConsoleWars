@@ -12,15 +12,9 @@ namespace ConsoleWars.Commands
 {
     internal class MenuCommands
     {
-        private IUnitOfWork DataBase;
-        public MenuCommands(IUnitOfWork db)
-        {
-            DataBase = db;
-        }
-
         internal void MainMenu()
         {
-            Menu menu = new Menu(DataBase);
+            Menu menu = new Menu();
             bool alive = true;
             while (alive == true)
             {
@@ -116,7 +110,11 @@ namespace ConsoleWars.Commands
 
         private void ShowAll(Menu menu)
         {
-            menu.AllCharacters();
+            var res = menu.AllCharacters();
+            foreach(var b in res)
+            {
+                Console.WriteLine($"{b.NickName} {b.Level} {b.HeroType}");
+            }
         }
 
         #region State Handlers

@@ -12,7 +12,7 @@ namespace ConsoleWars.DAL.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private HeroContext context;
-        private HeroFeatureRepository heroRepository;
+        private HeroEFRepository heroRepository;
 
         public IRepository<HeroFeature> Features
         {
@@ -20,7 +20,7 @@ namespace ConsoleWars.DAL.Repositories
             {
                 if(heroRepository == null)
                 {
-                    heroRepository = new HeroFeatureRepository(context);
+                    heroRepository = new HeroEFRepository(context);
                 }
                 return heroRepository;
             }
