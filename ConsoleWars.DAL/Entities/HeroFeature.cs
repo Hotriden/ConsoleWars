@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ConsoleWars.DAL.Enums;
 
 namespace ConsoleWars.DAL.Entities
 {
@@ -13,7 +12,7 @@ namespace ConsoleWars.DAL.Entities
 
         public string NickName { get; set; }
 
-        public HeroType HeroType { get; set; }
+        public string HeroType { get; set; }
 
         public bool IsAlive { get; set; }
 

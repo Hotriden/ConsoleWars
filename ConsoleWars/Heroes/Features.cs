@@ -12,7 +12,7 @@ namespace ConsoleWars.Heroes
 
         public string NickName { get; set; }
 
-        public HeroType HeroType { get; set; }
+        public string HeroType { get; set; }
 
         public bool IsAlive { get; set; }
 

@@ -11,7 +11,7 @@ namespace ConsoleWars.Heroes
         public MageHero(string nickName)
         {
             NickName = nickName;
-            HeroType = HeroType.Mage;
+            HeroType = "Mage";
             IsAlive = true;
             Strength = 15;
             Vitality = 20;

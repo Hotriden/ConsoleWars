@@ -1,7 +1,7 @@
 ﻿using ConsoleWars.DAL.Interfaces;
-using ConsoleWars.EF;
 using ConsoleWars.Game;
 using ConsoleWars.Handlers;
+using ConsoleWars.Heroes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ namespace ConsoleWars.Commands
     {
         internal void MainMenu()
         {
-            Menu menu = new Menu();
+            Menu menu = new Menu("HeroContext");
             bool alive = true;
             while (alive == true)
             {
@@ -51,7 +51,7 @@ namespace ConsoleWars.Commands
         {
             Console.WriteLine("Input character nickname");
             string name = Convert.ToString(Console.ReadLine());
-            HeroType type = HeroType.Warrior;
+            Features hero = new Features();
             if (name == null)
             {
                 Console.WriteLine("Invalid nickname input");
@@ -61,22 +61,22 @@ namespace ConsoleWars.Commands
             int com = Convert.ToInt32(Console.ReadLine());
             if (com == 1)
             {
-                type = HeroType.Warrior;
+                hero = new WarriorHero(name);
             }
             else if (com == 2)
             {
-                type = HeroType.Mage;
+                hero = new MageHero(name);
             }
             else if (com == 3)
             {
-                type = HeroType.Rogue;
+                hero = new RogueHero(name);
             }
             else
             {
                 Console.WriteLine("Invalid cast");
                 CreateCharacter(menu);
             }
-            Console.WriteLine(menu.NewHero(name, type));
+            Console.WriteLine(menu.NewHero(hero));
             AfterCreating(menu);
         }
 
@@ -111,10 +111,12 @@ namespace ConsoleWars.Commands
         private void ShowAll(Menu menu)
         {
             var res = menu.AllCharacters();
+            Console.WriteLine("________________________________________");
             foreach(var b in res)
             {
                 Console.WriteLine($"{b.NickName} {b.Level} {b.HeroType}");
             }
+            Console.WriteLine("________________________________________\r\n");
         }
 
         #region State Handlers

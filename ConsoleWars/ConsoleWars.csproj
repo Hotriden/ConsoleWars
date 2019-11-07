@@ -71,7 +71,6 @@
     <Compile Include="Dungeons\OrcFortDungeon.cs" />
     <Compile Include="Dungeons\TrollJungleDungeon.cs" />
     <Compile Include="Dungeons\WaterHallsDungeon.cs" />
-    <Compile Include="EF\HeroContext.cs" />
     <Compile Include="Enemies\EarthElementalEnemy.cs" />
     <Compile Include="Enemies\Enemy.cs" />
     <Compile Include="Enemies\EnemyFeature.cs" />
@@ -91,6 +90,7 @@
     <Compile Include="Heroes\MageHero.cs" />
     <Compile Include="Heroes\RogueHero.cs" />
     <Compile Include="Heroes\WarriorHero.cs" />
+    <Compile Include="Mapper\HeroMapper.cs" />
     <Compile Include="Ninject\NinjectService.cs" />
     <Compile Include="StartGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

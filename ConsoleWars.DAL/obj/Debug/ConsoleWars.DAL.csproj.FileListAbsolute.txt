@@ -2,10 +2,6 @@ D:\CW\ConsoleWars\ConsoleWars.DAL\obj\Debug\ConsoleWars.DAL.csprojAssemblyRefere
 D:\CW\ConsoleWars\ConsoleWars.DAL\bin\Debug\ConsoleWars.DAL.exe.config
 D:\CW\ConsoleWars\ConsoleWars.DAL\bin\Debug\ConsoleWars.DAL.exe
 D:\CW\ConsoleWars\ConsoleWars.DAL\bin\Debug\ConsoleWars.DAL.pdb
-D:\CW\ConsoleWars\ConsoleWars.DAL\bin\Debug\EntityFramework.dll
-D:\CW\ConsoleWars\ConsoleWars.DAL\bin\Debug\EntityFramework.SqlServer.dll
-D:\CW\ConsoleWars\ConsoleWars.DAL\bin\Debug\EntityFramework.xml
-D:\CW\ConsoleWars\ConsoleWars.DAL\bin\Debug\EntityFramework.SqlServer.xml
 D:\CW\ConsoleWars\ConsoleWars.DAL\obj\Debug\ConsoleWars.DAL.csproj.CopyComplete
 D:\CW\ConsoleWars\ConsoleWars.DAL\obj\Debug\ConsoleWars.DAL.exe
 D:\CW\ConsoleWars\ConsoleWars.DAL\obj\Debug\ConsoleWars.DAL.pdb

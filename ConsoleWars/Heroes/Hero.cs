@@ -8,13 +8,6 @@ using System.Threading.Tasks;
 
 namespace ConsoleWars
 {
-    public enum HeroType
-    {
-        Warrior,
-        Mage,
-        Rogue
-    }
-
     internal abstract class Hero : Features, IHero
     {
         #region Events

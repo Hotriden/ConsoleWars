@@ -11,7 +11,7 @@ namespace ConsoleWars.Heroes
         public WarriorHero(string nickName)
         {
             NickName = nickName;
-            HeroType = HeroType.Warrior;
+            HeroType = "Warrior";
             IsAlive = true;
             Strength = 35;
             Vitality = 25;

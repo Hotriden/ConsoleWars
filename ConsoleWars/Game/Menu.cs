@@ -1,5 +1,4 @@
 ﻿using ConsoleWars.DAL.Interfaces;
-using ConsoleWars.EF;
 using ConsoleWars.Handlers;
 using ConsoleWars.Heroes;
 using System;
@@ -11,46 +10,20 @@ using AutoMapper;
 using ConsoleWars.DAL.Entities;
 using ConsoleWars.DAL.Repositories;
 using ConsoleWars.DAL.Dapper;
+using ConsoleWars.Mapper;
 
 namespace ConsoleWars.Game
 {
     public class Menu
     {
-        IUnitOfWork DataBase; // EF
-        HeroDapper dapper;
-
-        //public Menu(IUnitOfWork unitOfWork) 
-        //{
-        //    DataBase = unitOfWork;
-        //    dapper = new HeroDapper();
-        //}
-
-        public Menu()
+        private IRepository<HeroFeature> repository;
+        private HeroMapper<HeroFeature, Features> mapperToFeatures;
+        private HeroMapper<Features, HeroFeature> mapperToHeroFeatures;
+        public Menu(string dbName)
         {
-            dapper = new HeroDapper();
-        }
-
-        internal Hero MapperToHero(HeroFeature feature)
-        {
-            var mapperConfiguration = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Hero, HeroFeature>();
-                cfg.CreateMap<HeroFeature, Hero>();
-            });
-            mapperConfiguration.AssertConfigurationIsValid();
-            var mapper = mapperConfiguration.CreateMapper();
-            return mapper.Map<Hero>(feature);
-        }
-
-        internal HeroFeature MapperToFeature(Hero hero)
-        {
-            var mapperConfiguration = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<HeroFeature, Hero>();
-            });
-            mapperConfiguration.AssertConfigurationIsValid();
-            var mapper = mapperConfiguration.CreateMapper();
-            return mapper.Map<HeroFeature>(hero);
+            repository = new DapperRepository(dbName);
+            mapperToHeroFeatures = new HeroMapper<Features, HeroFeature>();
+            mapperToFeatures = new HeroMapper<HeroFeature, Features>();
         }
 
         internal void ChooseHero(string nickname, ConsoleWarsStateHandler created, 
@@ -58,65 +31,47 @@ namespace ConsoleWars.Game
             ConsoleWarsStateHandler moveToDung, ConsoleWarsStateHandler hited,
             ConsoleWarsStateHandler attacked, ConsoleWarsStateHandler heroInfo)
         {
-            Hero hero = new WarriorHero(nickname);
+            //Features hero = new WarriorHero(nickname);
 
-            if (nickname == null)
-                throw new Exception("Error! Hero doesn't exist!");
-            else if(DataBase.Features.Get(nickname)!=null)
-            {
-                throw new Exception("Hero with such nickname doesn't exist");
-            }
-            else
-            {
-                hero = MapperToHero((DataBase.Features.Get(nickname)));
-            }
-
-            hero.Created += created;
-            hero.Attacked += attacked;
-            hero.GotLevel += gotLevel;
-            hero.HeroInfo += heroInfo;
-            hero.Hited += hited;
-            hero.Killed += killed;
-            hero.MovedToDungeon += moveToDung;
-        }
-
-        internal List<HeroFeature> AllCharacters()
-        {
-            //var result = DataBase.Features.GetAll();
-            //foreach (var r in result)
+            //if (nickname == null)
+            //    throw new Exception("Error! Hero doesn't exist!");
+            //else if(repository.Get(nickname)!=null)
             //{
-            //    Console.WriteLine($"{r.NickName} - {r.Level} - {r.Level}\r\n");
+            //    throw new Exception("Hero with such nickname doesn't exist");
+            //}
+            //else
+            //{
+            //    hero = mapperToFeatures.MapperMethod(((repository.Get(nickname))));
             //}
 
-            var result = dapper.GetHeroes();
-            return result;
+            //hero.Created += created;
+            //hero.Attacked += attacked;
+            //hero.GotLevel += gotLevel;
+            //hero.HeroInfo += heroInfo;
+            //hero.Hited += hited;
+            //hero.Killed += killed;
+            //hero.MovedToDungeon += moveToDung;
         }
 
-        internal Hero FindCharacter(string nickName)
+        internal IEnumerable<HeroFeature> AllCharacters()
         {
-            return MapperToHero((DataBase.Features.Get(nickName)));
+            return repository.GetAll();
         }
 
-        internal string NewHero(string nickname, HeroType type)
+        internal Features FindCharacter(string nickName)
         {
-            Hero hero = null;
+            return mapperToFeatures.MapperMethod(((repository.Get(nickName))));
+        }
 
-            if (DataBase.Features.Get(nickname) != null)
+        internal string NewHero(Features hero)
+        {
+            if (repository.Get(hero.NickName) != null)
             {
                 return "Character with such nickname already exist.\r\nTry to choose another one";
             }
             else
             {
-                if (type == HeroType.Warrior) 
-                    hero = new WarriorHero(nickname);
-                if (type == HeroType.Mage)
-                    hero = new MageHero(nickname);
-                if (type == HeroType.Rogue)
-                    hero = new RogueHero(nickname);
-                else
-                    return "Some thing goes wrong! Check this out";
-                DataBase.Features.Create(MapperToFeature(hero));
-                DataBase.Save();
+                repository.Create(mapperToHeroFeatures.MapperMethod((hero)));
                 return "Character successful created";
             }
         }

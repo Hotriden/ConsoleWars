@@ -1,4 +1,5 @@
-﻿using ConsoleWars.DAL.Interfaces;
+﻿using ConsoleWars.DAL.Entities;
+using ConsoleWars.DAL.Interfaces;
 using ConsoleWars.DAL.Repositories;
 using Ninject.Modules;
 using System;
@@ -18,7 +19,7 @@ namespace ConsoleWars.Ninject
         }
         public override void Load()
         {
-            Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument(connectionString);
+            Bind<IRepository<HeroFeature>>().To<DapperRepository>().WithConstructorArgument(connectionString);
         }
     }
 }
