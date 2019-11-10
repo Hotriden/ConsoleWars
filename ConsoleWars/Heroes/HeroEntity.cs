@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleWars.DAL.Entities
+namespace ConsoleWars.Heroes
 {
-    public class HeroFeature
+    public class HeroEntity
     {
         public int Id { get; set; }
 

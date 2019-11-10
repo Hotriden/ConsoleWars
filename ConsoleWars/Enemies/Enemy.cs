@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleWars.Enemies
 {
-    class Enemy : EnemyFeature, IEnemy
+    public abstract class Enemy : EnemyFeature, IEnemy
     {
         public void Die()
         {

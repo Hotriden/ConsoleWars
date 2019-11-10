@@ -16,14 +16,14 @@ namespace ConsoleWars.Game
 {
     public class Menu
     {
-        private IRepository<HeroFeature> repository;
-        private HeroMapper<HeroFeature, Features> mapperToFeatures;
-        private HeroMapper<Features, HeroFeature> mapperToHeroFeatures;
+        private IRepository<HeroEntityDAL> repository;
+        private HeroMapper<HeroEntityDAL, HeroEntity> mapperToFeatures;
+        private HeroMapper<HeroEntity, HeroEntityDAL> mapperToHeroFeatures;
         public Menu(string dbName)
         {
             repository = new DapperRepository(dbName);
-            mapperToHeroFeatures = new HeroMapper<Features, HeroFeature>();
-            mapperToFeatures = new HeroMapper<HeroFeature, Features>();
+            mapperToHeroFeatures = new HeroMapper<HeroEntity, HeroEntityDAL>();
+            mapperToFeatures = new HeroMapper<HeroEntityDAL, HeroEntity>();
         }
 
         internal void ChooseHero(string nickname, ConsoleWarsStateHandler created, 
@@ -53,17 +53,19 @@ namespace ConsoleWars.Game
             //hero.MovedToDungeon += moveToDung;
         }
 
-        internal IEnumerable<HeroFeature> AllCharacters()
+        internal IEnumerable<HeroEntityDAL> AllCharacters()
         {
             return repository.GetAll();
         }
 
-        internal Features FindCharacter(string nickName)
+        internal HeroEntity FindCharacter(string nickName)
         {
-            return mapperToFeatures.MapperMethod(((repository.Get(nickName))));
+            var result = repository.Get(nickName);
+            var map = mapperToFeatures.MapperMethod(repository.Get(nickName));
+            return map;
         }
 
-        internal string NewHero(Features hero)
+        internal string NewHero(HeroEntity hero)
         {
             if (repository.Get(hero.NickName) != null)
             {

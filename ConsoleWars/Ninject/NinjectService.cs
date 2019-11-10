@@ -19,7 +19,7 @@ namespace ConsoleWars.Ninject
         }
         public override void Load()
         {
-            Bind<IRepository<HeroFeature>>().To<DapperRepository>().WithConstructorArgument(connectionString);
+            Bind<IRepository<HeroEntityDAL>>().To<DapperRepository>().WithConstructorArgument(connectionString);
         }
     }
 }

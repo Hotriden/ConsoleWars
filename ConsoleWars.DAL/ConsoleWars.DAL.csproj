@@ -53,7 +53,7 @@
   <ItemGroup>
     <Compile Include="Dapper\DapperHelper.cs" />
     <Compile Include="Dapper\HeroDapper.cs" />
-    <Compile Include="Entities\HeroFeature.cs" />
+    <Compile Include="Entities\HeroEntityDAL.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="MainClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

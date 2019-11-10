@@ -61,12 +61,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\MenuCommands.cs" />
+    <Compile Include="Commands\RandomGenerator.cs" />
+    <Compile Include="Content\DungeonInfo.cs" />
     <Compile Include="Dungeons\Dungeon.cs" />
+    <Compile Include="Dungeons\Factory\ConcreteFactory.cs" />
+    <Compile Include="Dungeons\Factory\DungeronFactory.cs" />
     <Compile Include="Dungeons\EarthHallsDungeon.cs" />
     <Compile Include="Dungeons\FireHallsDungeon.cs" />
     <Compile Include="Dungeons\GiantCanyonDungeon.cs" />
     <Compile Include="Dungeons\GoblinFieldDungeon.cs" />
-    <Compile Include="Dungeons\IDungeon.cs" />
     <Compile Include="Dungeons\MoltenCoreDungeon.cs" />
     <Compile Include="Dungeons\OrcFortDungeon.cs" />
     <Compile Include="Dungeons\TrollJungleDungeon.cs" />
@@ -84,7 +87,7 @@
     <Compile Include="Enemies\WaterElementalEnemy.cs" />
     <Compile Include="Game\Menu.cs" />
     <Compile Include="Handlers\ConsoleWarsEventArgs.cs" />
-    <Compile Include="Heroes\Features.cs" />
+    <Compile Include="Heroes\HeroEntity.cs" />
     <Compile Include="Heroes\Hero.cs" />
     <Compile Include="Heroes\IHero.cs" />
     <Compile Include="Heroes\MageHero.cs" />

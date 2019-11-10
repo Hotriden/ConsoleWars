@@ -16,11 +16,14 @@ namespace ConsoleWars.Handlers
 
         public int Experience { get; private set; }
 
-        public ConsoleWarsEventArgs(string mes, int heals, int exp)
+        public int Damage { get; private set; }
+
+        public ConsoleWarsEventArgs(string mes, int heals, int exp, int dmg)
         {
             Message = mes;
             Heals = heals;
             Experience = exp;
+            Damage = dmg;
         }
     }
 }

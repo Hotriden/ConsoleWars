@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleWars.Enemies
 {
-    class OrcEnemy
+    class OrcEnemy:Enemy
     {
     }
 }

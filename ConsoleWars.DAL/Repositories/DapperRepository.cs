@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleWars.DAL.Repositories
 {
-    public class DapperRepository : IRepository<HeroFeature>
+    public class DapperRepository : IRepository<HeroEntityDAL>
     {
         private HeroDapper dapper;
 
@@ -18,7 +18,7 @@ namespace ConsoleWars.DAL.Repositories
             dapper = new HeroDapper(name);
         }
 
-        public void Create(HeroFeature item)
+        public void Create(HeroEntityDAL item)
         {
             dapper.InsertHero(item);
         }
@@ -28,17 +28,17 @@ namespace ConsoleWars.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public HeroFeature Get(string nick)
+        public HeroEntityDAL Get(string nick)
         {
             return dapper.FindHero(nick);
         }
 
-        public IEnumerable<HeroFeature> GetAll()
+        public IEnumerable<HeroEntityDAL> GetAll()
         {
             return dapper.GetHeroes();
         }
 
-        public void Update(HeroFeature item)
+        public void Update(HeroEntityDAL item)
         {
             throw new NotImplementedException();
         }

@@ -1,4 +1,5 @@
 ﻿using ConsoleWars.DAL.Interfaces;
+using ConsoleWars.Dungeons;
 using ConsoleWars.Game;
 using ConsoleWars.Handlers;
 using ConsoleWars.Heroes;
@@ -19,7 +20,7 @@ namespace ConsoleWars.Commands
             while (alive == true)
             {
                 Console.WriteLine("Make your choise");
-                Console.WriteLine("1:Create new hero\r\n2:Continue gane\r\n3:Show all characters\r\n4:Close game");
+                Console.WriteLine("1:Create new hero\r\n2:Start game\r\n3:Show all characters\r\n4:Close game");
                 try
                 {
                     int command = Convert.ToInt32(Console.ReadLine());
@@ -30,7 +31,7 @@ namespace ConsoleWars.Commands
                             CreateCharacter(menu);
                             break;
                         case 2:
-                            ContinueGame(menu);
+                            ChooseHero(menu);
                             break;
                         case 3:
                             ShowAll(menu);
@@ -51,7 +52,7 @@ namespace ConsoleWars.Commands
         {
             Console.WriteLine("Input character nickname");
             string name = Convert.ToString(Console.ReadLine());
-            Features hero = new Features();
+            HeroEntity hero = new HeroEntity();
             if (name == null)
             {
                 Console.WriteLine("Invalid nickname input");
@@ -77,15 +78,15 @@ namespace ConsoleWars.Commands
                 CreateCharacter(menu);
             }
             Console.WriteLine(menu.NewHero(hero));
-            AfterCreating(menu);
+            AfterCreating(hero);
         }
 
-        private void AfterCreating(Menu menu)
+        private void AfterCreating(HeroEntity hero)
         {
             Console.WriteLine("To start game press 1\r\nBack to main menu press 2");
             int com = Convert.ToInt32(Console.ReadLine());
             if (com == 1)
-                StartGame();
+                StartGame(hero, KilledStateHandler, GetLevelStateHandler, MoveToDungStateHandler, HitStateHandler, GetDamageStateHandler);
             else if (com == 2)
             {
                 MainMenu();
@@ -93,19 +94,56 @@ namespace ConsoleWars.Commands
             else
             {
                 Console.WriteLine("Invalid operation. Try again!");
-                AfterCreating(menu);
+                AfterCreating(hero);
+            }
+        }
+
+        private void ChooseHero(Menu menu)
+        {
+            Console.WriteLine("Input character nickname:");
+            string input = Console.ReadLine();
+            var hero = menu.FindCharacter(input);
+            if (hero == null)
+            {
+                Console.WriteLine("Character with such name doesn't exist");
+                MainMenu();
+            }
+            else
+            {
+                StartGame(hero, KilledStateHandler, GetLevelStateHandler, 
+                    MoveToDungStateHandler, HitStateHandler, GetDamageStateHandler);
             }
         }
 
 
-        private void StartGame()
+        private void StartGame(HeroEntity hero, ConsoleWarsStateHandler killed, ConsoleWarsStateHandler GetLevel,
+            ConsoleWarsStateHandler MoveToDung, ConsoleWarsStateHandler Hit, ConsoleWarsStateHandler GetDamage)
         {
-            throw new NotImplementedException();
+            IHero player = null;
+            Console.WriteLine("Press function:\r\n1: Choose dungeon\r\n2: Check features\r\n3: Get rest\r\n4: Back to main menu");
+            int dung = Convert.ToInt32(Console.ReadLine());
+            if (dung>1 && dung * 2 > hero.Level)
+                Console.WriteLine($"You are not allow to move on level {dung}. You should be at least {dung * 2} level");
+            else
+            {
+                if (hero.HeroType == "Warrior")
+                    player = new WarriorHero(hero.NickName);
+                if (hero.HeroType == "Mage")
+                    player = new MageHero(hero.NickName);
+                if (hero.HeroType == "Rogue")
+                    player = new RogueHero(hero.NickName);
+                else
+                {
+                    Console.WriteLine("Some thing goes wrong!");
+                    MainMenu();
+                }
+                ComeToDung(player, dung);
+            }
         }
 
-        private void ContinueGame(Menu menu)
+        private void ComeToDung(IHero hero, int dung)
         {
-            throw new NotImplementedException();
+            Dungeon dungeon = null;
         }
 
         private void ShowAll(Menu menu)
@@ -120,10 +158,6 @@ namespace ConsoleWars.Commands
         }
 
         #region State Handlers
-        private static void CreateStateHandler(object sender, ConsoleWarsEventArgs e)
-        {
-            Console.WriteLine(e.Message);
-        }
 
         private static void KilledStateHandler(object sender, ConsoleWarsEventArgs e)
         {
@@ -145,12 +179,7 @@ namespace ConsoleWars.Commands
             Console.WriteLine(e.Message);
         }
 
-        private static void AttackStateHandler(object sender, ConsoleWarsEventArgs e)
-        {
-            Console.WriteLine(e.Message);
-        }
-
-        private static void HeroInfoStateHandler(object sender, ConsoleWarsEventArgs e)
+        private static void GetDamageStateHandler(object sender, ConsoleWarsEventArgs e)
         {
             Console.WriteLine(e.Message);
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleWars.Heroes
 {
-    class WarriorHero:Hero
+    class WarriorHero:Hero,IHero
     {
         public WarriorHero(string nickName)
         {

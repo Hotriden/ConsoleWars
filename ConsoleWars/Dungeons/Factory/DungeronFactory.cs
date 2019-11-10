@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ConsoleWars.Dungeons
 {
-    class IDungeon
+    public abstract class DungeronFactory
     {
+        public abstract Dungeon CreateDungeon();
     }
 }

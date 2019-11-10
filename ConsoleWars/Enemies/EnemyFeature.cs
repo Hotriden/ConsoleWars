@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleWars.Enemies
 {
-    class EnemyFeature
+    public class EnemyFeature
     {
         public int HealPoint { get; set; }
         public int Experience { get; set; }

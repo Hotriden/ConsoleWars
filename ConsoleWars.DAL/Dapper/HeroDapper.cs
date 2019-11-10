@@ -19,16 +19,16 @@ namespace ConsoleWars.DAL.Dapper
             DbName = db;
         }
 
-        public List<HeroFeature> GetHeroes()
+        public List<HeroEntityDAL> GetHeroes()
         {
             using (IDbConnection connection = new SqlConnection(DapperHelper.CnnVal(DbName)))
             {
                 connection.Open();
-                return connection.Query<HeroFeature>("SELECT * FROM Features").ToList();
+                return connection.Query<HeroEntityDAL>("SELECT * FROM Features").ToList();
             }
         }
 
-        public void InsertHero(HeroFeature hero)
+        public void InsertHero(HeroEntityDAL hero)
         {
             using (IDbConnection connection = new SqlConnection(DapperHelper.CnnVal(DbName)))
             {
@@ -41,12 +41,14 @@ namespace ConsoleWars.DAL.Dapper
             }
         }
 
-        public HeroFeature FindHero(string nickName)
+        public HeroEntityDAL FindHero(string nickName)
         {
             using(IDbConnection connection = new SqlConnection(DapperHelper.CnnVal(DbName)))
             {
                 connection.Open();
-                return connection.Query<HeroFeature>("SELECT NickName, HeroType, Level FROM Features WHERE NickName='nickName'").SingleOrDefault();
+                var result = connection.Query<HeroEntityDAL>($"SELECT NickName, HeroType, IsAlive, Strength, Vitality," +
+                    $"HealPoints, Agility, Mana, Level, Experience, ExperienceBar, Damage FROM dbo.Features WHERE NickName='{nickName}'").FirstOrDefault();
+                return result;
             }
         }
     }

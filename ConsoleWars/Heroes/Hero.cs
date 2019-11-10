@@ -1,4 +1,5 @@
-﻿using ConsoleWars.Handlers;
+﻿using ConsoleWars.Commands;
+using ConsoleWars.Handlers;
 using ConsoleWars.Heroes;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleWars
 {
-    internal abstract class Hero : Features, IHero
+    internal abstract class Hero : HeroEntity, IHero
     {
         #region Events
         protected internal event ConsoleWarsStateHandler Created;
@@ -27,8 +28,6 @@ namespace ConsoleWars
         #endregion
 
         private static int _counter;
-
-        Random random = new Random();
 
         #region Methods
         private void CallEvent(ConsoleWarsEventArgs e, ConsoleWarsStateHandler handler)
@@ -82,7 +81,7 @@ namespace ConsoleWars
         #region Based implementation of events
         public virtual void CreateHero()
         {
-            Creating(new ConsoleWarsEventArgs($"Character {NickName}, class {HeroType} created!", this.HealPoints, this.Experience));
+            Creating(new ConsoleWarsEventArgs($"Character {NickName}, class {HeroType} created!", this.HealPoints, this.Experience, this.Damage));
         }
 
         public virtual void HeroKilled()
@@ -95,43 +94,43 @@ namespace ConsoleWars
             {
                 this.Experience = this.Experience - ExperienceBar / 4;
             }
-            Killing(new ConsoleWarsEventArgs($"Character {NickName}, has been slain. You lost 25% of experience", 0, this.Experience));
+            Killing(new ConsoleWarsEventArgs($"Character {NickName}, has been slain. You lost 25% of experience", 0, this.Experience, this.Damage));
         }
 
         public virtual void LevelUp()
         {
             if (this.Experience >= ExperienceBar)
-                Leveling(new ConsoleWarsEventArgs($"Your character get level {Level}. Your features increased!", HealPoints, 0));
+                Leveling(new ConsoleWarsEventArgs($"Your character get level {Level}. Your features increased!", HealPoints, 0, this.Damage));
         }
 
         public virtual void MoveOnLevel()
         {
-            MovingDungeon(new ConsoleWarsEventArgs($"Your character come to dungeon", this.HealPoints, this.Experience));
+            MovingDungeon(new ConsoleWarsEventArgs($"Your character come to dungeon", this.HealPoints, this.Experience, this.Damage));
         }
 
         public virtual void Hit()
         {
-            int rand = random.Next(0, 100);
+            int rand = RandomGenerator.RandomMethod(0, 100);
             if (rand >= 50)
             {
-                Hitting(new ConsoleWarsEventArgs($"{NickName} dealed {Damage * 1.5} damage", this.HealPoints, this.Experience));
+                Hitting(new ConsoleWarsEventArgs($"{NickName} dealed {Damage * 1.5} damage", this.HealPoints, this.Experience, this.Damage));
             }
             else
             {
-                Hitting(new ConsoleWarsEventArgs($"{NickName} dealed {Damage} damage", this.HealPoints, this.Experience));
+                Hitting(new ConsoleWarsEventArgs($"{NickName} dealed {Damage} damage", this.HealPoints, this.Experience, this.Damage));
             }
         }
 
         public virtual void GetDamage()
         {
-            int rand = random.Next(0, 100);
+            int rand = RandomGenerator.RandomMethod(0, 100);
             if (rand >= 50)
             {
-                Attacking(new ConsoleWarsEventArgs($"{NickName} got {Damage * 1.5} damage", this.HealPoints-(int)(Damage*1.5), this.Experience));
+                Attacking(new ConsoleWarsEventArgs($"{NickName} got {Damage * 1.5} damage", this.HealPoints-(int)(Damage*1.5), this.Experience, this.Damage));
             }
             else
             {
-                Attacking(new ConsoleWarsEventArgs($"{NickName} got {Damage} damage", this.HealPoints-(int)Damage, this.Experience));
+                Attacking(new ConsoleWarsEventArgs($"{NickName} got {Damage} damage", this.HealPoints-(int)Damage, this.Experience, this.Damage));
             }
         }
         #endregion
