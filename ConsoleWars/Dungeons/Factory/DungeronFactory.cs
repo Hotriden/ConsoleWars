@@ -8,6 +8,6 @@ namespace ConsoleWars.Dungeons
 {
     public abstract class DungeronFactory
     {
-        public abstract Dungeon CreateDungeon();
+        public abstract Dungeon CreateDungeon(int dungeon);
     }
 }

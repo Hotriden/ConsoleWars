@@ -6,7 +6,21 @@ using System.Threading.Tasks;
 
 namespace ConsoleWars.Dungeons
 {
-    class OrcFortDungeon
+    class OrcFortDungeon : Dungeon
     {
+        public override string DungeonName()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string Intro()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string MeetEnemy()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

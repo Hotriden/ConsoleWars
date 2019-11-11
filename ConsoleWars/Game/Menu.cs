@@ -31,26 +31,7 @@ namespace ConsoleWars.Game
             ConsoleWarsStateHandler moveToDung, ConsoleWarsStateHandler hited,
             ConsoleWarsStateHandler attacked, ConsoleWarsStateHandler heroInfo)
         {
-            //Features hero = new WarriorHero(nickname);
 
-            //if (nickname == null)
-            //    throw new Exception("Error! Hero doesn't exist!");
-            //else if(repository.Get(nickname)!=null)
-            //{
-            //    throw new Exception("Hero with such nickname doesn't exist");
-            //}
-            //else
-            //{
-            //    hero = mapperToFeatures.MapperMethod(((repository.Get(nickname))));
-            //}
-
-            //hero.Created += created;
-            //hero.Attacked += attacked;
-            //hero.GotLevel += gotLevel;
-            //hero.HeroInfo += heroInfo;
-            //hero.Hited += hited;
-            //hero.Killed += killed;
-            //hero.MovedToDungeon += moveToDung;
         }
 
         internal IEnumerable<HeroEntityDAL> AllCharacters()

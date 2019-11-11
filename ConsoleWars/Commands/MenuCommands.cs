@@ -1,5 +1,7 @@
-﻿using ConsoleWars.DAL.Interfaces;
+﻿using ConsoleWars.Content;
+using ConsoleWars.DAL.Interfaces;
 using ConsoleWars.Dungeons;
+using ConsoleWars.Dungeons.Factory;
 using ConsoleWars.Game;
 using ConsoleWars.Handlers;
 using ConsoleWars.Heroes;
@@ -115,35 +117,60 @@ namespace ConsoleWars.Commands
             }
         }
 
-
         private void StartGame(HeroEntity hero, ConsoleWarsStateHandler killed, ConsoleWarsStateHandler GetLevel,
             ConsoleWarsStateHandler MoveToDung, ConsoleWarsStateHandler Hit, ConsoleWarsStateHandler GetDamage)
         {
-            IHero player = null;
-            Console.WriteLine("Press function:\r\n1: Choose dungeon\r\n2: Check features\r\n3: Get rest\r\n4: Back to main menu");
-            int dung = Convert.ToInt32(Console.ReadLine());
-            if (dung>1 && dung * 2 > hero.Level)
-                Console.WriteLine($"You are not allow to move on level {dung}. You should be at least {dung * 2} level");
+            Hero player = (Hero)hero;
+            player.Killed += killed;
+            player.GotLevel += GetLevel;
+            player.Attacked += Hit;
+            player.MovedToDungeon += MoveToDung;
+            player.Hited += GetDamage;
+
+            if (hero.HeroType == "Warrior")
+                player = new WarriorHero(hero.NickName);
+            if (hero.HeroType == "Mage")
+                player = new MageHero(hero.NickName);
+            if (hero.HeroType == "Rogue")
+                player = new RogueHero(hero.NickName);
             else
             {
-                if (hero.HeroType == "Warrior")
-                    player = new WarriorHero(hero.NickName);
-                if (hero.HeroType == "Mage")
-                    player = new MageHero(hero.NickName);
-                if (hero.HeroType == "Rogue")
-                    player = new RogueHero(hero.NickName);
-                else
-                {
-                    Console.WriteLine("Some thing goes wrong!");
-                    MainMenu();
-                }
-                ComeToDung(player, dung);
+                Console.WriteLine("Some thing goes wrong!");
+                MainMenu();
+            }
+            Console.WriteLine("Press function:\r\n1: Choose dungeon\r\n2: Check features\r\n3: Back to main menu");
+            int choose = Convert.ToInt32(Console.ReadLine());
+            if (choose == 1)
+                ComeToDung(player);
+            if (choose == 2)
+                HeroInfo(player);
+            if(choose == 3)
+            {
+                MainMenu();    
+            }
+            else
+            {
+                Console.WriteLine($"Some thing goes wrong! Trouble on {this.ToString()}");
             }
         }
 
-        private void ComeToDung(IHero hero, int dung)
+        private void ComeToDung(Hero hero)
         {
-            Dungeon dungeon = null;
+            ConcreteFactory dungFactory = new ConcreteFactory();
+
+            Console.WriteLine(DungeonInfo.ChooseDungInfo());
+            int dung = Convert.ToInt32(Console.ReadLine());
+            if (dung > 1 && dung * 2 > hero.Level)
+            {
+                Console.WriteLine($"You are not allow to move on level {dung}. You should be at least {dung * 2} level");
+                ComeToDung(hero);
+            }
+            else
+            {
+                Dungeon dungeon = dungFactory.CreateDungeon(dung);
+                if (dungeon != null)
+                    Console.WriteLine(DungeonInfo.ChooseDungInfo());
+            }
         }
 
         private void ShowAll(Menu menu)
@@ -155,6 +182,16 @@ namespace ConsoleWars.Commands
                 Console.WriteLine($"{b.NickName} {b.Level} {b.HeroType}");
             }
             Console.WriteLine("________________________________________\r\n");
+        }
+
+        private string HeroInfo(Hero hero)
+        {
+            string info = $"{hero.NickName} - {hero.HeroType} - {hero.Level}\r\n" +
+                $"Strength: {hero.Strength}\r\nAgility: {hero.Agility}\r\nVitality: {hero.Vitality}\r\n" +
+                $"Heal points: {hero.HealPoints}\r\nMana: {hero.Mana}\r\n" +
+                $"Experience to {hero.Level+1}: {hero.Experience} of {hero.ExperienceBar}\r\n" +
+                $"Avarage damage per hit: {hero.Damage}";
+            return info;
         }
 
         #region State Handlers
